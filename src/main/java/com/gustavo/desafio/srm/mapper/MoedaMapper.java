@@ -1,8 +1,12 @@
 package com.gustavo.desafio.srm.mapper;
 
+import com.gustavo.desafio.srm.domain.dto.moeda.MoedaCriacaoDTO;
+import com.gustavo.desafio.srm.domain.dto.moeda.MoedaResponseDTO;
 import com.gustavo.desafio.srm.domain.entity.Moeda;
 import org.mapstruct.Mapper;
 import org.mapstruct.Named;
+
+import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface MoedaMapper {
@@ -13,13 +17,16 @@ public interface MoedaMapper {
         return entity;
     }
 
-    @Named("mapMoedaDestinoToString")
-    static String mapMoedaDestinoToString(Moeda entity) {
-        return entity.getNome();
+    @Named("mapMoedaOrigemToMoeda")
+    static Moeda mapMoedaOrigemToMoeda(Integer id) {
+        Moeda entity = new Moeda();
+        entity.setId(id);
+        return entity;
     }
 
-    @Named("mapMoedaOrigemToString")
-    static String mapMoedaOrigemToString(Moeda entity) {
-        return entity.getNome();
-    }
+    Moeda toEntity(MoedaCriacaoDTO dto);
+
+    MoedaResponseDTO toDto(Moeda dto);
+
+    List<MoedaResponseDTO> toDto(List<Moeda> dto);
 }

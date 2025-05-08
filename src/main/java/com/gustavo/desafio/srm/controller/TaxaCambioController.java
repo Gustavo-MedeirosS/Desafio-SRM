@@ -34,8 +34,8 @@ public class TaxaCambioController {
     public ResponseEntity<TaxaCambioResponseDto> cadastrarNovaTaxaCambio(@RequestBody @Valid TaxaCambioCriacaoDTO dto) {
         TaxaCambio entity = mapper.toEntity(dto);
         entity.setDataHora(LocalDateTime.now());
-        entity.setMoedaOrigem(moedaService.buscarMoedaPorId(1));
-        entity.setMoedaDestino(moedaService.buscarMoedaPorId(2));
+        entity.setMoedaOrigem(moedaService.buscarPorId(1));
+        entity.setMoedaDestino(moedaService.buscarPorId(2));
         TaxaCambio taxaCambioSalvo = service.cadastrarNovaTaxaCambio(entity);
 
         return ResponseEntity.ok(mapper.toDto(taxaCambioSalvo));
