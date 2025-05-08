@@ -7,6 +7,7 @@ import jakarta.persistence.Id;
 import lombok.Data;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Data
@@ -17,5 +18,5 @@ public class TaxaCambio {
     private Integer id;
 
     private Double taxa;
-    private LocalDate data;
+    private LocalDateTime dataHora;
 }
