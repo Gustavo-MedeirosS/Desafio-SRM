@@ -15,4 +15,5 @@ public class Moeda {
     private Integer id;
 
     private String nome;
+    private String simbolo;
 }

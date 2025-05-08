@@ -1,12 +1,8 @@
 package com.gustavo.desafio.srm.domain.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Data;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -19,4 +15,12 @@ public class TaxaCambio {
 
     private Double taxa;
     private LocalDateTime dataHora;
+    @ManyToOne
+    private Moeda moedaOrigem;
+
+    @ManyToOne
+    private Moeda moedaDestino;
+
+    @ManyToOne
+    private Produto produto;
 }

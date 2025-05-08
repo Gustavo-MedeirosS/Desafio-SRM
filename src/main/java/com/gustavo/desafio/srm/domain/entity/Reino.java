@@ -15,5 +15,4 @@ public class Reino {
     private Integer id;
 
     private String nome;
-    private Double taxa;
 }

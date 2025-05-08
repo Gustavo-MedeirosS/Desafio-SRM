@@ -11,7 +11,7 @@ public class TaxaCambioService {
     private TaxaCambioRepository repository;
 
     public TaxaCambio buscarTaxaCambioAtual() {
-        return repository.findTopByOrderByDataHoraDesc();
+        return repository.findTopByMoedaOrigemIdAndMoedaDestinoIdOrderByDataHoraDesc(1, 2);
     }
 
     public TaxaCambio cadastrarNovaTaxaCambio(TaxaCambio entity) {
