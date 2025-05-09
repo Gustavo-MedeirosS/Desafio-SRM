@@ -6,6 +6,7 @@ import com.gustavo.desafio.srm.domain.entity.Moeda;
 import com.gustavo.desafio.srm.mapper.MoedaMapper;
 import com.gustavo.desafio.srm.service.MoedaService;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,13 +16,11 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/moedas")
+@RequiredArgsConstructor
 public class MoedaController {
 
-    @Autowired
-    private MoedaService service;
-
-    @Autowired
-    private MoedaMapper mapper;
+    private final MoedaService service;
+    private final MoedaMapper mapper;
 
     @GetMapping
     public ResponseEntity<List<MoedaResponseDTO>> listarTodas() {

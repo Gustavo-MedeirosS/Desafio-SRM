@@ -7,7 +7,7 @@ import com.gustavo.desafio.srm.mapper.ReinoMapper;
 import com.gustavo.desafio.srm.service.MoedaService;
 import com.gustavo.desafio.srm.service.ReinoService;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,14 +16,12 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/reinos")
+@RequiredArgsConstructor
 public class ReinoController {
 
-    @Autowired
-    private ReinoService service;
-    @Autowired
-    private ReinoMapper mapper;
-    @Autowired
-    private MoedaService moedaService;
+    private final ReinoService service;
+    private final ReinoMapper mapper;
+    private final MoedaService moedaService;
 
     @GetMapping
     public ResponseEntity<List<ReinoResponseDTO>> listarTodos() {

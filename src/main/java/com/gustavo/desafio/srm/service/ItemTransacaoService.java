@@ -2,7 +2,7 @@ package com.gustavo.desafio.srm.service;
 
 import com.gustavo.desafio.srm.domain.entity.ItemTransacao;
 import com.gustavo.desafio.srm.repository.ItemTransacaoRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -10,10 +10,10 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class ItemTransacaoService {
 
-    @Autowired
-    private ItemTransacaoRepository repository;
+    private final ItemTransacaoRepository repository;
 
     public List<ItemTransacao> buscarItensPorTransacaoId(Integer transacaoId) {
         return repository.findAllByTransacaoId(transacaoId);

@@ -6,7 +6,7 @@ import com.gustavo.desafio.srm.repository.MoedaRepository;
 import com.gustavo.desafio.srm.repository.ReinoRepository;
 import com.gustavo.desafio.srm.repository.TransacaoRepository;
 import com.gustavo.desafio.srm.specification.TransacaoSpecification;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
@@ -15,14 +15,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 @Service
+@RequiredArgsConstructor
 public class TransacaoService {
 
-    @Autowired
-    private TransacaoRepository transacaoRepository;
-    @Autowired
-    private MoedaRepository moedaRepository;
-    @Autowired
-    private ReinoRepository reinoRepository;
+    private final TransacaoRepository transacaoRepository;
+    private final MoedaRepository moedaRepository;
+    private final ReinoRepository reinoRepository;
 
     public Page<Transacao> buscarTodas(TransacaoFiltroDTO filtro, Pageable pageable) {
         Specification<Transacao> specification = Specification.where(null);

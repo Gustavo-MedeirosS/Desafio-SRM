@@ -12,8 +12,8 @@ import com.gustavo.desafio.srm.mapper.TransacaoMapper;
 import com.gustavo.desafio.srm.service.*;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springdoc.core.annotations.ParameterObject;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
@@ -29,24 +29,17 @@ import java.util.Objects;
 
 @RestController
 @RequestMapping("/transacoes")
+@RequiredArgsConstructor
 public class TransacaoController {
 
-    @Autowired
-    private TransacaoMapper transacaoMapper;
-    @Autowired
-    private ItemTransacaoMapper itemTransacaoMapper;
-    @Autowired
-    private TransacaoService transacaoService;
-    @Autowired
-    private ReinoService reinoService;
-    @Autowired
-    private MoedaService moedaService;
-    @Autowired
-    private ProdutoService produtoService;
-    @Autowired
-    private ItemTransacaoService itemTransacaoService;
-    @Autowired
-    private TaxaCambioService taxaCambioService;
+    private final TransacaoMapper transacaoMapper;
+    private final ItemTransacaoMapper itemTransacaoMapper;
+    private final TransacaoService transacaoService;
+    private final ReinoService reinoService;
+    private final MoedaService moedaService;
+    private final ProdutoService produtoService;
+    private final ItemTransacaoService itemTransacaoService;
+    private final TaxaCambioService taxaCambioService;
 
     @GetMapping
     public ResponseEntity<Page<TransacaoResponseDTO>> listarTodos(

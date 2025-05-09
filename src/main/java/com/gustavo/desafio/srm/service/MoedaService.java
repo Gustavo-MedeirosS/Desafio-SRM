@@ -2,7 +2,7 @@ package com.gustavo.desafio.srm.service;
 
 import com.gustavo.desafio.srm.domain.entity.Moeda;
 import com.gustavo.desafio.srm.repository.MoedaRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -10,10 +10,10 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class MoedaService {
 
-    @Autowired
-    private MoedaRepository repository;
+    private final MoedaRepository repository;
 
     public List<Moeda> buscarTodas() {
         return repository.findAll();

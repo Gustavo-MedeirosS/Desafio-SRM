@@ -7,7 +7,7 @@ import com.gustavo.desafio.srm.mapper.ProdutoMapper;
 import com.gustavo.desafio.srm.service.ProdutoService;
 import com.gustavo.desafio.srm.service.ReinoService;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,15 +16,12 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/produtos")
+@RequiredArgsConstructor
 public class ProdutoController {
 
-    @Autowired
-    private ProdutoService service;
-
-    @Autowired
-    private ProdutoMapper mapper;
-    @Autowired
-    private ReinoService reinoService;
+    private final ProdutoService service;
+    private final ProdutoMapper mapper;
+    private final ReinoService reinoService;
 
     @GetMapping
     public ResponseEntity<List<ProdutoResponseDTO>> listarTodas() {

@@ -3,7 +3,7 @@ package com.gustavo.desafio.srm.service;
 import com.gustavo.desafio.srm.domain.entity.Produto;
 import com.gustavo.desafio.srm.repository.ProdutoRepository;
 import com.gustavo.desafio.srm.repository.ReinoRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -11,12 +11,11 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class ProdutoService {
 
-    @Autowired
-    private ProdutoRepository repository;
-    @Autowired
-    private ReinoRepository reinoRepository;
+    private final ProdutoRepository repository;
+    private final ReinoRepository reinoRepository;
 
     public List<Produto> buscarTodos() {
         return repository.findAll();

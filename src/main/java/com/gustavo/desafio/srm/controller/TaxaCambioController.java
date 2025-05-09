@@ -7,7 +7,7 @@ import com.gustavo.desafio.srm.mapper.TaxaCambioMapper;
 import com.gustavo.desafio.srm.service.MoedaService;
 import com.gustavo.desafio.srm.service.TaxaCambioService;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,14 +15,12 @@ import java.time.LocalDateTime;
 
 @RestController
 @RequestMapping("/taxas-cambio")
+@RequiredArgsConstructor
 public class TaxaCambioController {
 
-    @Autowired
-    private TaxaCambioService service;
-    @Autowired
-    private MoedaService moedaService;
-    @Autowired
-    private TaxaCambioMapper mapper;
+    private final TaxaCambioService service;
+    private final MoedaService moedaService;
+    private final TaxaCambioMapper mapper;
 
     @GetMapping("/atual")
     public ResponseEntity<TaxaCambioResponseDto> exibirTaxaCambioAtual() {
