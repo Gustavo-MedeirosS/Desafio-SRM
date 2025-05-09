@@ -1,15 +1,18 @@
 package com.gustavo.desafio.srm.service;
 
+import com.gustavo.desafio.srm.domain.dto.transacao.TransacaoFiltroDTO;
 import com.gustavo.desafio.srm.domain.entity.Transacao;
 import com.gustavo.desafio.srm.repository.MoedaRepository;
 import com.gustavo.desafio.srm.repository.ReinoRepository;
 import com.gustavo.desafio.srm.repository.TransacaoRepository;
+import com.gustavo.desafio.srm.specification.TransacaoSpecification;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
-
-import java.util.List;
 
 @Service
 public class TransacaoService {
@@ -21,8 +24,30 @@ public class TransacaoService {
     @Autowired
     private ReinoRepository reinoRepository;
 
-    public List<Transacao> buscarTodas() {
-        return transacaoRepository.findAll();
+    public Page<Transacao> buscarTodas(TransacaoFiltroDTO filtro, Pageable pageable) {
+        Specification<Transacao> specification = Specification.where(null);
+
+        if (filtro.getMoedaOrigemId() != null) {
+            specification.and(TransacaoSpecification.moedaOrigemIdEqual(filtro.getMoedaOrigemId()));
+        }
+
+        if (filtro.getMoedaDestinoId() != null) {
+            specification.and(TransacaoSpecification.moedaDestinoIdEqual(filtro.getMoedaDestinoId()));
+        }
+
+        if (filtro.getReinoId() != null) {
+            specification.and(TransacaoSpecification.reinoIdEqual(filtro.getReinoId()));
+        }
+
+        if (filtro.getDataHoraInicio() != null) {
+            specification.and(TransacaoSpecification.dataHoraGreatherThanOrEqual(filtro.getDataHoraInicio()));
+        }
+
+        if (filtro.getDataHoraFim() != null) {
+            specification.and(TransacaoSpecification.dataHoraLessThanOrEqual(filtro.getDataHoraFim()));
+        }
+
+        return transacaoRepository.findAll(specification, pageable);
     }
 
     public Transacao buscarPorId(Integer id) {
@@ -33,9 +58,9 @@ public class TransacaoService {
 
     public Transacao cadastrar(Transacao entity) {
         if (
-            !reinoRepository.existsById(entity.getReino().getId()) ||
-            !moedaRepository.existsById(entity.getMoedaOrigem().getId()) ||
-            !moedaRepository.existsById(entity.getMoedaDestino().getId())
+                !reinoRepository.existsById(entity.getReino().getId()) ||
+                        !moedaRepository.existsById(entity.getMoedaOrigem().getId()) ||
+                        !moedaRepository.existsById(entity.getMoedaDestino().getId())
         ) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }

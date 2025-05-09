@@ -5,6 +5,7 @@ import com.gustavo.desafio.srm.domain.dto.produto.ProdutoResponseDTO;
 import com.gustavo.desafio.srm.domain.entity.Produto;
 import com.gustavo.desafio.srm.mapper.ProdutoMapper;
 import com.gustavo.desafio.srm.service.ProdutoService;
+import com.gustavo.desafio.srm.service.ReinoService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +23,8 @@ public class ProdutoController {
 
     @Autowired
     private ProdutoMapper mapper;
+    @Autowired
+    private ReinoService reinoService;
 
     @GetMapping
     public ResponseEntity<List<ProdutoResponseDTO>> listarTodas() {
@@ -41,8 +44,12 @@ public class ProdutoController {
 
     @PostMapping
     public ResponseEntity<ProdutoResponseDTO> cadastrar(@RequestBody @Valid ProdutoCriacaoDTO dto) {
-        Produto produtoSalvo = service.cadastrar(mapper.toEntity(dto));
+        Produto entity = mapper.toEntity(dto);
+        entity.setReino(reinoService.buscarPorId(dto.getReinoId()));
+
+        Produto produtoSalvo = service.cadastrar(entity);
         URI uri = URI.create("/produtos/" + produtoSalvo.getId());
+
         return ResponseEntity.created(uri).body(mapper.toDto(produtoSalvo));
     }
 }

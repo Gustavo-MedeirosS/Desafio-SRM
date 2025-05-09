@@ -4,6 +4,7 @@ import com.gustavo.desafio.srm.domain.dto.reino.ReinoCriacaoDTO;
 import com.gustavo.desafio.srm.domain.dto.reino.ReinoResponseDTO;
 import com.gustavo.desafio.srm.domain.entity.Reino;
 import com.gustavo.desafio.srm.mapper.ReinoMapper;
+import com.gustavo.desafio.srm.service.MoedaService;
 import com.gustavo.desafio.srm.service.ReinoService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,8 @@ public class ReinoController {
     private ReinoService service;
     @Autowired
     private ReinoMapper mapper;
+    @Autowired
+    private MoedaService moedaService;
 
     @GetMapping
     public ResponseEntity<List<ReinoResponseDTO>> listarTodos() {
@@ -40,8 +43,12 @@ public class ReinoController {
 
     @PostMapping
     public ResponseEntity<ReinoResponseDTO> cadastrar(@RequestBody @Valid ReinoCriacaoDTO dto) {
-        Reino reinoSalvo = service.cadastrar(mapper.toEntity(dto));
+        Reino entity = mapper.toEntity(dto);
+        entity.setMoeda(moedaService.buscarPorId(dto.getMoedaId()));
+
+        Reino reinoSalvo = service.cadastrar(entity);
         URI uri = URI.create("/reinos/" + reinoSalvo.getId());
+
         return ResponseEntity.created(uri).body(mapper.toDto(reinoSalvo));
     }
 }

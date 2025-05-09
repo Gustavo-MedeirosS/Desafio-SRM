@@ -15,6 +15,10 @@ public class ItemTransacaoService {
     @Autowired
     private ItemTransacaoRepository repository;
 
+    public List<ItemTransacao> buscarItemPorTransacaoId(Integer transacaoId) {
+        return repository.findAllByTransacaoId(transacaoId);
+    }
+
     public ItemTransacao cadastrar(ItemTransacao entity) {
         if (repository.existsByTransacaoIdAndProdutoId(
                 entity.getTransacao().getId(),
