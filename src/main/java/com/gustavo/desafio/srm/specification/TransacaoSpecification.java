@@ -6,8 +6,6 @@ import com.gustavo.desafio.srm.domain.entity.Transacao;
 import jakarta.persistence.criteria.Join;
 import org.springframework.data.jpa.domain.Specification;
 
-import java.time.LocalDateTime;
-
 public class TransacaoSpecification {
 
     public static Specification<Transacao> moedaOrigemIdEqual(Integer moedaOrigemId) {
@@ -32,14 +30,12 @@ public class TransacaoSpecification {
     }
 
     public static Specification<Transacao> valorFinalLessThanOrEqual(Double valor) {
-        return (((root, query, criteriaBuilder) -> {
-            return criteriaBuilder.lessThanOrEqualTo(root.get("valorFinal"), valor);
-        }));
+        return (((root, query, criteriaBuilder) -> criteriaBuilder.lessThanOrEqualTo(root.get("valorFinal"), valor)
+        ));
     }
 
     public static Specification<Transacao> valorFinalGreatherThanOrEqual(Double valor) {
-        return (((root, query, criteriaBuilder) -> {
-            return criteriaBuilder.greaterThanOrEqualTo(root.get("valorFinal"), valor);
-        }));
+        return (((root, query, criteriaBuilder) -> criteriaBuilder.greaterThanOrEqualTo(root.get("valorFinal"), valor)
+        ));
     }
 }

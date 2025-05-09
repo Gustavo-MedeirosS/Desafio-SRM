@@ -6,6 +6,8 @@ import com.gustavo.desafio.srm.domain.entity.TaxaCambio;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
+import java.util.List;
+
 @Mapper(componentModel = "spring", uses = {MoedaMapper.class, ProdutoMapper.class})
 public interface TaxaCambioMapper {
 
@@ -14,4 +16,6 @@ public interface TaxaCambioMapper {
 
 
     TaxaCambioResponseDto toDto(TaxaCambio entity);
+
+    List<TaxaCambioResponseDto> toDto(List<TaxaCambio> entity);
 }
