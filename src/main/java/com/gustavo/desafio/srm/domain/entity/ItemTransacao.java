@@ -3,25 +3,24 @@ package com.gustavo.desafio.srm.domain.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 
-import java.time.LocalDateTime;
-
 @Entity
 @Data
-public class Transacao {
+public class ItemTransacao {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    private LocalDateTime dataHora;
-    private Double valorFinal;
+    @ManyToOne
+    private Transacao transacao;
 
     @ManyToOne
-    private Reino reino;
+    private Produto produto;
+
+    private Integer quantidade;
+    private Double valorOrigem;
+    private Double valorDestino;
 
     @ManyToOne
-    private Moeda moedaOrigem;
-
-    @ManyToOne
-    private Moeda moedaDestino;
+    private TaxaCambio taxaReferencia;
 }

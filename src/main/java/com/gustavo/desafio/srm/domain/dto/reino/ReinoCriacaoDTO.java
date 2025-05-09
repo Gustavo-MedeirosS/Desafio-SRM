@@ -10,4 +10,7 @@ public class ReinoCriacaoDTO {
     @NotNull
     @NotBlank
     private String nome;
+
+    @NotNull
+    private Integer moedaId;
 }

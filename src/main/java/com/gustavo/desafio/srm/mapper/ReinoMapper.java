@@ -4,11 +4,12 @@ import com.gustavo.desafio.srm.domain.dto.reino.ReinoCriacaoDTO;
 import com.gustavo.desafio.srm.domain.dto.reino.ReinoResponseDTO;
 import com.gustavo.desafio.srm.domain.entity.Reino;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.Named;
 
 import java.util.List;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", uses = MoedaMapper.class)
 public interface ReinoMapper {
     @Named("mapReinoIdToReino")
     static Reino mapReinoIdToReino(Integer id) {
@@ -17,13 +18,7 @@ public interface ReinoMapper {
         return entity;
     }
 
-//    @Named("mapReinoToReinoResponse")
-//    static ReinoResponseDTO mapReinoToReinoResponse(Reino entity) {
-//        ReinoResponseDTO dto = new ReinoResponseDTO();
-//        dto.setNome(entity.getNome());
-//        return dto;
-//    }
-
+    @Mapping(source = "moedaId", target = "moeda", qualifiedByName = "mapMoedaIdToMoeda")
     Reino toEntity(ReinoCriacaoDTO dto);
 
     ReinoResponseDTO toDto(Reino entity);

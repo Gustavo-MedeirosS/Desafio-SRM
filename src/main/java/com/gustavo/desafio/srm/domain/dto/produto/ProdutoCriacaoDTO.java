@@ -8,4 +8,5 @@ public class ProdutoCriacaoDTO {
     private String nome;
     private String descricao;
     private Integer reinoId;
+    private Double precoBase;
 }

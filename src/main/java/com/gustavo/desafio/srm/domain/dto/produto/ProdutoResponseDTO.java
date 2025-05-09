@@ -9,5 +9,6 @@ public class ProdutoResponseDTO {
     private Integer id;
     private String nome;
     private String descricao;
+    private Double precoBase;
     private ReinoResponseDTO reino;
 }

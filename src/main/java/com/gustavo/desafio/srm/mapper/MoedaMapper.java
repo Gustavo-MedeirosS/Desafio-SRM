@@ -24,6 +24,13 @@ public interface MoedaMapper {
         return entity;
     }
 
+    @Named("mapMoedaIdToMoeda")
+    static Moeda mapMoedaIdToMoeda(Integer id) {
+        Moeda entity = new Moeda();
+        entity.setId(id);
+        return entity;
+    }
+
     Moeda toEntity(MoedaCriacaoDTO dto);
 
     MoedaResponseDTO toDto(Moeda dto);

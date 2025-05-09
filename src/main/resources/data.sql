@@ -49,17 +49,17 @@ INSERT INTO moeda (nome, simbolo) VALUES
 	('Ouro Real', 'OR'),
 	('Tibar', 'TB');
 
-INSERT INTO reino(nome) VALUES
-    ('Wefin'),
-    ('Montanhas Distantes');
+INSERT INTO reino(nome, moeda_id) VALUES
+    ('Wefin', 1),
+    ('Montanhas Distantes', 2);
 
-INSERT INTO produto(nome, descricao, reino_id) VALUES
-	('Pele', 'Usada para fazer roupas', 1),
-	('Madeira', 'Usada para construir casas', 1),
-	('Hidromel', 'Bebida sagrada para conquistas', 1),
-	('Pele', 'Usada para fazer cobertas', 2),
-	('Madeira', 'Usada para construir armas', 2),
-	('Hidromel', 'Bebida para a batalha', 2);
+INSERT INTO produto(nome, descricao, reino_id, preco_base) VALUES
+	('Pele', 'Usada para fazer roupas', 1, 30.0),
+	('Madeira', 'Usada para construir casas', 1, 15.0),
+	('Hidromel', 'Bebida sagrada para conquistas', 1, 60.0),
+	('Pele', 'Usada para fazer cobertas', 2, 30.0),
+	('Madeira', 'Usada para construir armas', 2, 15.0),
+	('Hidromel', 'Bebida para a batalha', 2, 60.0);
 
 INSERT INTO taxa_cambio (taxa, data_hora, moeda_origem_id, moeda_destino_id, produto_id) VALUES
     (2.5, '2025-05-07 09:00:00', 1, 2, null),

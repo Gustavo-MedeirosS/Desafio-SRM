@@ -26,7 +26,7 @@ public class TaxaCambioController {
 
     @GetMapping("/atual")
     public ResponseEntity<TaxaCambioResponseDto> exibirTaxaCambioAtual() {
-        TaxaCambio taxaCambio = service.buscarTaxaCambioAtual();
+        TaxaCambio taxaCambio = service.buscarTaxaCambioAtual(1,2);
         return ResponseEntity.ok(mapper.toDto(taxaCambio));
     }
 
