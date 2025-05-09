@@ -50,19 +50,26 @@ public class TransacaoController {
 
     @GetMapping
     public ResponseEntity<Page<TransacaoResponseDTO>> listarTodos(
-        @ParameterObject TransacaoFiltroDTO filtroDTO,
-        @RequestParam int pagina,
-        @RequestParam int itens
+            @ParameterObject TransacaoFiltroDTO filtroDTO,
+            @RequestParam int pagina,
+            @RequestParam int itens
     ) {
         Page<Transacao> transacoes = transacaoService.buscarTodas(filtroDTO, PageRequest.of(pagina, itens));
 
-        if (transacoes.getContent().isEmpty()) {
+        if (transacoes.isEmpty()) {
             return ResponseEntity.noContent().build();
         }
 
         List<Transacao> transacoesList = convertToTransacaoList(transacoes);
         List<TransacaoResponseDTO> transacoesDtoList = transacaoMapper.toDto(transacoesList);
+
+        transacoesDtoList.forEach(dto -> {
+            List<ItemTransacao> itensTransacao = itemTransacaoService.buscarItensPorTransacaoId(dto.getId());
+            dto.setProdutos(itemTransacaoMapper.toDto(itensTransacao));
+        });
+
         Page<TransacaoResponseDTO> transacoesPage = convertToTransacaoPage(transacoesDtoList, pagina, itens);
+
         return ResponseEntity.ok(transacoesPage);
     }
 
@@ -79,7 +86,7 @@ public class TransacaoController {
     public ResponseEntity<TransacaoResponseDTO> exibirPorId(@PathVariable Integer id) {
         TransacaoResponseDTO dto = transacaoMapper.toDto(transacaoService.buscarPorId(id));
 
-        List<ItemTransacao> itensTransacao = itemTransacaoService.buscarItemPorTransacaoId(id);
+        List<ItemTransacao> itensTransacao = itemTransacaoService.buscarItensPorTransacaoId(id);
         dto.setProdutos(itemTransacaoMapper.toDto(itensTransacao));
 
         return ResponseEntity.ok(dto);

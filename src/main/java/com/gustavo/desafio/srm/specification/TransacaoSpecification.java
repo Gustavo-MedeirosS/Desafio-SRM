@@ -31,15 +31,15 @@ public class TransacaoSpecification {
         }));
     }
 
-    public static Specification<Transacao> dataHoraGreatherThanOrEqual(LocalDateTime dataHora) {
+    public static Specification<Transacao> valorFinalLessThanOrEqual(Double valor) {
         return (((root, query, criteriaBuilder) -> {
-            return criteriaBuilder.greaterThanOrEqualTo(root.get("dataHora"), dataHora);
+            return criteriaBuilder.lessThanOrEqualTo(root.get("valorFinal"), valor);
         }));
     }
 
-    public static Specification<Transacao> dataHoraLessThanOrEqual(LocalDateTime dataHora) {
+    public static Specification<Transacao> valorFinalGreatherThanOrEqual(Double valor) {
         return (((root, query, criteriaBuilder) -> {
-            return criteriaBuilder.lessThanOrEqualTo(root.get("dataHora"), dataHora);
+            return criteriaBuilder.greaterThanOrEqualTo(root.get("valorFinal"), valor);
         }));
     }
 }

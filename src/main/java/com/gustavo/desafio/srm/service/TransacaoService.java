@@ -39,12 +39,12 @@ public class TransacaoService {
             specification.and(TransacaoSpecification.reinoIdEqual(filtro.getReinoId()));
         }
 
-        if (filtro.getDataHoraInicio() != null) {
-            specification.and(TransacaoSpecification.dataHoraGreatherThanOrEqual(filtro.getDataHoraInicio()));
+        if (filtro.getValorMinimo() != null) {
+            specification.and(TransacaoSpecification.valorFinalGreatherThanOrEqual(filtro.getValorMinimo()));
         }
 
-        if (filtro.getDataHoraFim() != null) {
-            specification.and(TransacaoSpecification.dataHoraLessThanOrEqual(filtro.getDataHoraFim()));
+        if (filtro.getValorMaximo() != null) {
+            specification.and(TransacaoSpecification.valorFinalLessThanOrEqual(filtro.getValorMaximo()));
         }
 
         return transacaoRepository.findAll(specification, pageable);

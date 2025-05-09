@@ -15,7 +15,7 @@ public class ItemTransacaoService {
     @Autowired
     private ItemTransacaoRepository repository;
 
-    public List<ItemTransacao> buscarItemPorTransacaoId(Integer transacaoId) {
+    public List<ItemTransacao> buscarItensPorTransacaoId(Integer transacaoId) {
         return repository.findAllByTransacaoId(transacaoId);
     }
 
