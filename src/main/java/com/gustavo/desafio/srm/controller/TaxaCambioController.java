@@ -17,6 +17,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.URI;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -70,8 +71,10 @@ public class TaxaCambioController {
         entity.setDataHora(LocalDateTime.now());
         entity.setMoedaOrigem(moedaService.buscarPorId(1));
         entity.setMoedaDestino(moedaService.buscarPorId(2));
-        TaxaCambio taxaCambioSalvo = service.cadastrarNovaTaxaCambio(entity);
 
-        return ResponseEntity.ok(mapper.toDto(taxaCambioSalvo));
+        TaxaCambio taxaCambioSalvo = service.cadastrarNovaTaxaCambio(entity);
+        URI uri = URI.create("/taxas-cambio/" + taxaCambioSalvo.getId());
+
+        return ResponseEntity.created(uri).body(mapper.toDto(taxaCambioSalvo));
     }
 }

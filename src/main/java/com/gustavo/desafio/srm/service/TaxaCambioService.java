@@ -6,11 +6,10 @@ import com.gustavo.desafio.srm.repository.TaxaCambioRepository;
 import com.gustavo.desafio.srm.specification.TaxaCambioSpecification;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -19,7 +18,11 @@ public class TaxaCambioService {
     private final TaxaCambioRepository repository;
 
     public TaxaCambio buscarTaxaCambioAtual(Integer moedaOrigemId, Integer moedaDestinoId) {
-        return repository.findTopByMoedaOrigemIdAndMoedaDestinoIdOrderByDataHoraDesc(moedaOrigemId, moedaDestinoId);
+        return repository.findUltimaTaxaCambio(
+                moedaOrigemId,
+                moedaDestinoId,
+                PageRequest.of(0, 1)
+        ).stream().findFirst().orElse(null);
     }
 
     public Page<TaxaCambio> buscarTodas(TaxaCambioFiltroDTO filtro, Pageable pageable) {
@@ -54,8 +57,11 @@ public class TaxaCambioService {
             Integer moedaDestinoId,
             Integer produtoId
     ) {
-        Optional<TaxaCambio> taxaCambio = repository.findTopByMoedaOrigemIdAndMoedaDestinoIdAndProdutoIdOrderByDataHoraDesc(moedaOrigemId, moedaDestinoId, produtoId);
-
-        return taxaCambio.orElse(null);
+        return repository.findUltimaTaxaCambioPorProduto(
+                moedaOrigemId,
+                moedaDestinoId,
+                produtoId,
+                PageRequest.of(0, 1)
+        ).stream().findFirst().orElse(null);
     }
 }
